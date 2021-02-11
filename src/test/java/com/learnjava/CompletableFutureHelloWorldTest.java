@@ -48,4 +48,11 @@ public class CompletableFutureHelloWorldTest {
         log(helloWorld);
         assertEquals("HELLO WORLD! HI COMPLETABLEFUTURE!", helloWorld);
     }
+
+    @Test
+    void test_combine_completable_3_log() {
+        String helloWorld = completableFutureHelloWorld.helloworld_3_async_calls_log_async();
+        log(helloWorld);
+        assertEquals("HELLO WORLD! HI COMPLETABLEFUTURE!", helloWorld);
+    }
 }

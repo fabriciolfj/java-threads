@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.learnjava.CompletableFutureHelloWorldTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-02-11T23:53:19" hostname="spark-C62-LIV" time="1.042">
+  <properties/>
+  <testcase name="test_combine_completable_3_log()" classname="com.learnjava.CompletableFutureHelloWorldTest" time="1.042"/>
+  <system-out><![CDATA[[pool-1-thread-1] - inside hello
+[pool-1-thread-2] - inside world
+[pool-1-thread-4] - thenCombine h/w
+[pool-1-thread-5] - thenCombine previous/current
+[pool-1-thread-6] - thenApply
+[Test worker] - Total Time Taken : 1028
+[Test worker] - HELLO WORLD! HI COMPLETABLEFUTURE!
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

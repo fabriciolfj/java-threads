@@ -28,4 +28,5 @@ public class ProductServiceUsingCompletableFutureTest {
                     assertNotNull(c.getInventory());
         });
     }
+
 }

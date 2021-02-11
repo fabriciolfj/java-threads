@@ -1,1 +1,7 @@
-%[Test worker] - Total Time Taken : 3
+![pool-1-thread-1] - inside hello
+![pool-1-thread-2] - inside world
+$[pool-1-thread-4] - thenCombine h/w
+1[pool-1-thread-5] - thenCombine previous/current
+[pool-1-thread-6] - thenApply
+([Test worker] - Total Time Taken : 1028
+3[Test worker] - HELLO WORLD! HI COMPLETABLEFUTURE!
