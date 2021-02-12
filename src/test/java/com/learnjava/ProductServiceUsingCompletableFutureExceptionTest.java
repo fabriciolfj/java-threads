@@ -2,6 +2,7 @@ package com.learnjava;
 
 import com.learnjava.completablefuture.ProductServiceUsingCompletableFuture;
 import com.learnjava.domain.Product;
+import com.learnjava.domain.ProductInfo;
 import com.learnjava.service.InventoryService;
 import com.learnjava.service.ProductInfoService;
 import com.learnjava.service.ReviewService;
@@ -11,6 +12,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.concurrent.ExecutionException;
+
+import static com.learnjava.util.LoggerUtil.log;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -51,6 +55,28 @@ public class ProductServiceUsingCompletableFutureExceptionTest {
 
         assertThrows(RuntimeException.class, () -> productServiceUsingCompletableFuture.retrieveProductDetailsWithInventory(productId));
     }
+
+
+    @Test
+    void imprimirProducto() throws InterruptedException, ExecutionException {
+        when(productInfoService.retrieveProductInfo("ABC")).thenCallRealMethod();
+
+        ProductInfo produto = productServiceUsingCompletableFuture.getProduto();
+        log("Produto retornado: " + produto);
+
+        Thread.sleep(100L);
+    }
+
+    @Test
+    void imprimirProductoException() throws InterruptedException, ExecutionException {
+        when(productInfoService.retrieveProductInfo("ABC")).thenThrow(new RuntimeException("Teste"));
+
+        ProductInfo produto = productServiceUsingCompletableFuture.getProduto();
+        log("Produto retornado: " + produto);
+
+        Thread.sleep(100L);
+    }
+
 
 
 }

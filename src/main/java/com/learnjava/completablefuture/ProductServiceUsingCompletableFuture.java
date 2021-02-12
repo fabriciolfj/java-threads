@@ -9,8 +9,10 @@ import com.learnjava.service.InventoryService;
 import com.learnjava.service.ProductInfoService;
 import com.learnjava.service.ReviewService;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 import static com.learnjava.util.CommonUtil.delay;
@@ -101,6 +103,19 @@ public class ProductServiceUsingCompletableFuture {
                 }).collect(Collectors.toList());
 
         return options.stream().map(CompletableFuture::join).collect(Collectors.toList());
+    }
+
+    public ProductInfo getProduto() throws ExecutionException, InterruptedException {
+        return CompletableFuture.supplyAsync(() -> productInfoService.retrieveProductInfo("ABC"))
+                .exceptionally(e -> {
+                    log("Fail, details: " + e.getMessage());
+                    return ProductInfo.builder()
+                            .productId("0")
+                            .productOptions(Collections.EMPTY_LIST)
+                            .build();
+                }).whenComplete((p, e) -> {
+                    log("Product: " + p);
+                }).get();
     }
 
     public static void main(String[] args) throws InterruptedException {
