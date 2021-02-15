@@ -55,4 +55,14 @@ public class CompletableFutureHelloWorldTest {
         log(helloWorld);
         assertEquals("HELLO WORLD! HI COMPLETABLEFUTURE!", helloWorld);
     }
+
+    @Test
+    void testCompletableFuture() {
+        var test = CompletableFuture.supplyAsync(() ->  "teste")
+                .thenCompose(t -> CompletableFuture.supplyAsync(() -> t + " 2"))
+                .thenApply(String::toUpperCase)
+                .join();
+
+        System.out.println(test);
+    }
 }

@@ -2,6 +2,7 @@ package com.learnjava.completablefuture;
 
 import com.learnjava.service.HelloWorldService;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -20,6 +21,8 @@ public class CompletableFutureHelloWorld {
     public CompletableFutureHelloWorld(HelloWorldService hws) {
         this.hws = hws;
     }
+
+    public CompletableFutureHelloWorld() {}
 
     public CompletableFuture<String> helloWorld_thenCompose() {
         return CompletableFuture.supplyAsync(hws::hello)
@@ -102,5 +105,36 @@ public class CompletableFutureHelloWorld {
         timeTaken();
 
         return result;
+    }
+
+    //vai retornar o primeiro que aparecer
+    public String completableFutureAnyOf() {
+        CompletableFuture<String> db = CompletableFuture.supplyAsync(() -> {
+            delay(4000);
+            log("response from db");
+            return "hello world";
+        });
+
+        CompletableFuture<String> rest = CompletableFuture.supplyAsync(() -> {
+            delay(2000);
+            log("response from rest");
+            return "hello world";
+        });
+
+        CompletableFuture<String> soap = CompletableFuture.supplyAsync(() -> {
+            delay(3000);
+            log("response from soap");
+            return "hello world";
+        });
+
+        List<CompletableFuture> cfList = List.of(db, rest, soap);
+        var any = CompletableFuture.anyOf(cfList.toArray(new CompletableFuture[cfList.size()]));
+        return (String) any.thenApply(v -> {
+            if (v instanceof String) {
+                return v;
+            }
+
+            return null;
+        }).join();
     }
 }
